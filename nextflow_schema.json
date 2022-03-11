@@ -1,0 +1,55 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/YOUR_PIPELINE/master/nextflow_schema.json",
+    "title": "Nextflow pipeline parameters",
+    "description": "This pipeline uses Nextflow and processes some kind of data. The JSON Schema was built using the nf-core pipeline schema builder.",
+    "type": "object",
+    "definitions": {
+        "general": {
+            "title": "General Setup",
+            "type": "object",
+            "required": [
+                "yaml",
+                "outputDir"
+            ],
+            "properties": {
+                "yaml": {
+                    "type": "string",
+                    "description": "Yaml file that contains the pipeline inputs",
+                    "default": "/scratch/vpagano/sb/inputs_small.yaml"
+                },
+                "outputDir": {
+                    "type": "string",
+                    "description": "Where do you want to output the results",
+                    "default": ""
+                }
+            }
+        },
+        "optional": {
+            "title": "Optional settings",
+            "type": "object",
+            "properties": {
+                "workflow": {
+                    "type": "string",
+                    "description": "Json file that contains the Seven Bridges workflow",
+                    "default": "/scratch/vpagano/sb/graf-germline-workflow-1-2.json",
+                    "hidden": true
+                },
+                "sif": {
+                    "type": "string",
+                    "description": "Which singularity image would you like to use",
+                    "default": "/scratch/vpagano/sb/gral-rasm-stats-1-2-2.sif",
+                    "hidden": true
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/general"
+        },
+        {
+            "$ref": "#/definitions/optional"
+        }
+    ]
+}
