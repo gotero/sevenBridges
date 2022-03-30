@@ -2,6 +2,9 @@ nextflow.enable.dsl=2
 
 process sevenBridges {
 
+    input:
+        path sifFile
+
     cpus 36
 
     executor 'slurm'
@@ -18,5 +21,5 @@ process sevenBridges {
 params.jsonFile = '/scratch/vpagano/sb/graf-germline-workflow-1-2.json'
 
 workflow {
-    sevenBridges()
+    sevenBridges('/scratch/vpagano/sb/gral-rasm-stats-1-2-2.sif')
 }
