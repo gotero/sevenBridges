@@ -4,8 +4,8 @@ process sevenBridges {
 
     cpus 36
 
-    process.executor 'slurm'
-    process.queue 'gpu-dev'
+    executor 'slurm'
+    queue 'gpu-dev'
 
     script:
     """
