@@ -1,1 +1,0 @@
-2022-03-30 15:35:35	36.3s	peaceful_minsky	ERR	effac3c66b66e676c8619e1c76567e78	f5948a71-2f9f-4133-a085-2bc58709184c	nextflow run main.nf -profile dback
