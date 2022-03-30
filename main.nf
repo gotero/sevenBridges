@@ -9,6 +9,7 @@ process sevenBridges {
 
     script:
     """
+        module load singularity/3.8.4
         cwltool --singularity --outdir ${params.outputDir} ${params.jsonFile} ${params.yaml}
     """
 
