@@ -7,9 +7,6 @@ process sevenBridges {
 
     script:
     """
-        source /etc/profile.d/modules.sh
-        module load singularity/3.8.4
-
         cwltool --singularity --outdir ${params.outputDir} ${params.jsonFile} ${params.yaml}
     """
 
