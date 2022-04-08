@@ -29,16 +29,16 @@
             "title": "Optional settings",
             "type": "object",
             "properties": {
-                "workflow": {
+                "jsonFile": {
                     "type": "string",
                     "description": "Json file that contains the Seven Bridges workflow",
-                    "default": "/scratch/vpagano/sb/graf-germline-workflow-1-2.json",
+                    "default": "/scratch/vpagano/sb/graf-germline-workflow-1-2-3.json",
                     "hidden": true
                 },
                 "sif": {
                     "type": "string",
                     "description": "Which singularity image would you like to use",
-                    "default": "/scratch/vpagano/sb/gral-rasm-stats-1-2-2.sif",
+                    "default": "/scratch/vpagano/sb/gral-rasm-stats-1-2-3.sif",
                     "hidden": true
                 }
             }
