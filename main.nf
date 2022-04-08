@@ -7,8 +7,6 @@ process sevenBridges {
 
     cpus 36
 
-    executor 'slurm'
-    queue 'gpu-dev'
 
     script:
     """
@@ -21,5 +19,5 @@ process sevenBridges {
 params.jsonFile = '/scratch/vpagano/sb/graf-germline-workflow-1-2.json'
 
 workflow {
-    sevenBridges('/scratch/vpagano/sb/gral-rasm-stats-1-2-2.sif')
+    sevenBridges(params.sif)
 }
