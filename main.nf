@@ -6,7 +6,7 @@ process sevenBridges {
         path sifFile
 
     cpus 36
-
+    queue 'gpu-dev'
 
     script:
     """
