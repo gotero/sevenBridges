@@ -39,6 +39,18 @@
                     "description": "Which singularity image would you like to use",
                     "default": "/scratch/vpagano/sb/gral-rasm-stats-1-2-3.sif",
                     "hidden": true
+                },
+                "skipAMR": {
+                    "type": "boolean",
+                    "description": "Would you like to skip running the AMR reference?",
+                    "default": false,
+                    "hidden": true
+                },
+                "skipPangenome": {
+                    "type": "boolean",
+                    "description": "Would you like to skip running the Pangenome reference?",
+                    "default": false,
+                    "hidden": true
                 }
             }
         }

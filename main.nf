@@ -49,8 +49,14 @@ process writeYAML_AMR {
 workflow {
     fastq = Channel.fromFilePairs(params.input)
     fastq = fastq.map{ [ [ id: it[0] ], it[1] ] }
-    writeYAML(fastq)
-    writeYAML_AMR(fastq)
+    
+    if (!params.skipPangenome) {
+        writeYAML(fastq)
+    }
+
+    if (!params.skipAMR) {
+        writeYAML_AMR(fastq)
+    }
     samples = writeYAML.out.mix(writeYAML_AMR.out)
     sevenBridges(samples, params.sif)
 }
