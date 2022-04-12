@@ -13,10 +13,9 @@
                 "outputDir"
             ],
             "properties": {
-                "yaml": {
+                "input": {
                     "type": "string",
-                    "description": "Yaml file that contains the pipeline inputs",
-                    "default": "/scratch/vpagano/sb/inputs_small.yaml"
+                    "description": "Wildcard for all of your fastqs. Note paired fastqs must have a {1,2} wildcard eg. GIAB_{1,2}.fastq.gz"
                 },
                 "outputDir": {
                     "type": "string",
