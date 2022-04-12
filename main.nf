@@ -3,21 +3,54 @@ nextflow.enable.dsl=2
 process sevenBridges {
 
     input:
+        tuple val(meta), val(yaml)
         path sifFile
-
-    cpus 36
-    queue 'gpu-dev'
 
     script:
     """
         module load singularity/3.8.4
-        cwltool --singularity --outdir ${params.outputDir} ${params.jsonFile} ${params.yaml}
+        cwltool --singularity --tmpdir-prefix /scratch/vpagano/tmp --outdir ${params.outputDir} ${params.jsonFile} ${yaml}
     """
 
 }
 
-params.jsonFile = '/scratch/vpagano/sb/graf-germline-workflow-1-2.json'
+process writeYAML {
+
+    input:
+        tuple val(meta), val(fq)
+
+    output:
+        tuple val(meta), path("${meta.id}.yaml")
+
+    cpus 1
+
+    script:
+    """
+        sed 's+##SAMPLE##+${meta.id}+g;s+##FQ1##+${fq[0]}+g;s+##FQ2##+${fq[1]}+g' /scratch/vpagano/sb/sample.yaml > ${meta.id}.yaml
+    """
+}
+
+process writeYAML_AMR {
+
+    input:
+        tuple val(meta), val(fq)
+
+    output:
+        tuple val(meta), path("${meta.id}_AMR.yaml")
+
+    cpus 1
+
+    script:
+    """
+        sed 's+##SAMPLE##+${meta.id}+g;s+##FQ1##+${fq[0]}+g;s+##FQ2##+${fq[1]}+g' /scratch/vpagano/sb/sample_AMR.yaml > ${meta.id}_AMR.yaml
+    """
+}
 
 workflow {
-    sevenBridges(params.sif)
+    fastq = Channel.fromFilePairs(params.input)
+    fastq = fastq.map{ [ [ id: it[0] ], it[1] ] }
+    writeYAML(fastq)
+    writeYAML_AMR(fastq)
+    samples = writeYAML.out.mix(writeYAML_AMR.out)
+    sevenBridges(samples, params.sif)
 }
