@@ -13,9 +13,13 @@
                 "outputDir"
             ],
             "properties": {
-                "input": {
+                "csvFile": {
                     "type": "string",
-                    "description": "Wildcard for all of your fastqs. Note paired fastqs must have a {1,2} wildcard eg. GIAB_{1,2}.fastq.gz"
+                    "description": "Path to csv file with samples"
+                },
+                "batch": {
+                    "type": "string",
+                    "description": "Batch number to run"
                 },
                 "outputDir": {
                     "type": "string",
