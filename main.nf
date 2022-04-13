@@ -47,9 +47,16 @@ process writeYAML_AMR {
 }
 
 workflow {
-    fastq = Channel.fromFilePairs(params.input)
-    fastq = fastq.map{ [ [ id: it[0] ], it[1] ] }
-    
+//    fastq = Channel.fromFilePairs(params.input)
+//    fastq = fastq.map{ [ [ id: it[0] ], it[1] ] }
+
+    runFiles = Channel.fromPath(params.csvFile)
+               .splitCsv(header: true)
+               .filter{ it['Batch (Priority)'].toString()  == params.batch.toString() }
+               .map{ row -> [ row, [ row.path + row['fastq file (R1)'], row.path + row['fastq file (R2)'] ] ] }
+
+    fastq = runFiles.map { [ [ 'id': it[0].fileid ], it[1] ] }
+
     if (!params.skipPangenome) {
         writeYAML(fastq)
     }
@@ -59,4 +66,5 @@ workflow {
     }
     samples = writeYAML.out.mix(writeYAML_AMR.out)
     sevenBridges(samples, params.sif)
+    
 }
