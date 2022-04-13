@@ -20,13 +20,13 @@ process writeYAML {
         tuple val(meta), val(fq)
 
     output:
-        tuple val(meta), path("${meta.id}.yaml")
+        tuple val(meta), path("${meta.id}_PG.yaml")
 
     cpus 1
 
     script:
     """
-        sed 's+##SAMPLE##+${meta.id}+g;s+##FQ1##+${fq[0]}+g;s+##FQ2##+${fq[1]}+g' /scratch/vpagano/sb/sample.yaml > ${meta.id}.yaml
+        sed 's+##SAMPLE##+${meta.id}_PG+g;s+##FQ1##+${fq[0]}+g;s+##FQ2##+${fq[1]}+g' /scratch/vpagano/sb/sample.yaml > ${meta.id}_PG.yaml
     """
 }
 
@@ -42,7 +42,7 @@ process writeYAML_AMR {
 
     script:
     """
-        sed 's+##SAMPLE##+${meta.id}+g;s+##FQ1##+${fq[0]}+g;s+##FQ2##+${fq[1]}+g' /scratch/vpagano/sb/sample_AMR.yaml > ${meta.id}_AMR.yaml
+        sed 's+##SAMPLE##+${meta.id}_AMR+g;s+##FQ1##+${fq[0]}+g;s+##FQ2##+${fq[1]}+g' /scratch/vpagano/sb/sample_AMR.yaml > ${meta.id}_AMR.yaml
     """
 }
 
@@ -66,5 +66,5 @@ workflow {
     }
     samples = writeYAML.out.mix(writeYAML_AMR.out)
     sevenBridges(samples, params.sif)
-    
+
 }
