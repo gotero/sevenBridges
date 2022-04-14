@@ -13,9 +13,18 @@
                 "outputDir"
             ],
             "properties": {
-                "csvFile": {
+                "input": {
                     "type": "string",
-                    "description": "Path to csv file with samples"
+                    "description": "Path to fastq files or csv file with samples"
+                },
+                "inputType": {
+                    "type": "string",
+                    "description": "fastq files or a csv file",
+                    "default": "fastq",
+                    "enum": [
+                        "fastq",
+                        "csv"
+                    ]                
                 },
                 "batch": {
                     "type": "string",
