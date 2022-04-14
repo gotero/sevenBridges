@@ -12,6 +12,7 @@ process sevenBridges {
     """
         module load nodejs/12.13.0-GCCcore-8.2.0
         module load singularity/3.8.4
+        ${ params.petagene ? 'module load petagene/protect_1.3.11' : '' }
         cwltool --singularity --tmpdir-prefix /scratch/vpagano/tmp --outdir ${params.outputDir} ${params.jsonFile} ${yaml}
     """
 
@@ -63,6 +64,8 @@ workflow {
 
         fastq = runFiles.map { [ [ 'id': it[0].fileid ], it[1] ] }
     }
+
+    fastq.view()
 
     if (!params.skipPangenome) {
         writeYAML(fastq)

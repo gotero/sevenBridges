@@ -9,7 +9,8 @@
             "title": "General Setup",
             "type": "object",
             "required": [
-                "yaml",
+                "input",
+                "inputType",
                 "outputDir"
             ],
             "properties": {
@@ -29,6 +30,11 @@
                 "batch": {
                     "type": "string",
                     "description": "Batch number to run"
+                },
+                "petagene": {
+                    "type": "boolean",
+                    "description": "Should we use petagene",
+                    "default": false
                 },
                 "outputDir": {
                     "type": "string",
