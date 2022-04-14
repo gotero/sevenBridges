@@ -10,6 +10,7 @@ process sevenBridges {
 
     script:
     """
+        module load nodejs/12.13.0-GCCcore-8.2.0
         module load singularity/3.8.4
         cwltool --singularity --tmpdir-prefix /scratch/vpagano/tmp --outdir ${params.outputDir} ${params.jsonFile} ${yaml}
     """
