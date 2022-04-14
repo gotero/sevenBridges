@@ -28,7 +28,7 @@ process writeYAML {
 
     script:
     """
-        sed 's+##SAMPLE##+${meta.id}_PG+g;s+##FQ1##+${fq[0]}+g;s+##FQ2##+${fq[1]}+g' /scratch/vpagano/sb/sample.yaml > ${meta.id}_PG.yaml
+        sed 's+##SAMPLE##+${meta.id}+g;s+##FQ1##+${fq[0]}+g;s+##FQ2##+${fq[1]}+g' /scratch/vpagano/sb/sample.yaml > ${meta.id}_PG.yaml
     """
 }
 
@@ -44,7 +44,7 @@ process writeYAML_AMR {
 
     script:
     """
-        sed 's+##SAMPLE##+${meta.id}_AMR+g;s+##FQ1##+${fq[0]}+g;s+##FQ2##+${fq[1]}+g' /scratch/vpagano/sb/sample_AMR.yaml > ${meta.id}_AMR.yaml
+        sed 's+##SAMPLE##+${meta.id}+g;s+##FQ1##+${fq[0]}+g;s+##FQ2##+${fq[1]}+g' /scratch/vpagano/sb/sample_AMR.yaml > ${meta.id}_AMR.yaml
     """
 }
 
