@@ -6,6 +6,8 @@ process sevenBridges {
         tuple val(meta), val(yaml)
         path sifFile
 
+    errorStrategy 'ignore'
+
     script:
     """
         module load singularity/3.8.4
