@@ -1,5 +1,7 @@
 nextflow.enable.dsl=2
 
+include { petageneExpandFasterq } from './modules/petagene'
+
 process sevenBridges {
 
     input:
@@ -13,7 +15,7 @@ process sevenBridges {
         module load nodejs/12.13.0-GCCcore-8.2.0
         module load singularity/3.8.4
         ${ params.petagene ? 'module load petagene/protect_1.3.11' : '' }
-        cwltool --singularity --tmpdir-prefix /scratch/vpagano/tmp --outdir ${params.outputDir} ${params.jsonFile} ${yaml}
+        cwltool --singularity --tmpdir-prefix /scratch/vpagano/tmp/ --outdir ${params.outputDir} ${params.jsonFile} ${yaml}
     """
 
 }
@@ -51,9 +53,16 @@ process writeYAML_AMR {
 }
 
 workflow {
+    params.datasteward = 'TGen'
+    params.encrypt = true
+    params.species = 'human'
+
     if (params.inputType == 'fastq') {
         fastq = Channel.fromFilePairs(params.input)
         fastq = fastq.map{ [ [ id: it[0] ], it[1] ] }
+        if (params.petagene) {
+            fastq = petageneExpandFasterq(fastq, params.species, params.datasteward)
+        }
     }
 
     if (params.inputType == 'csv') {
@@ -65,8 +74,6 @@ workflow {
         fastq = runFiles.map { [ [ 'id': it[0].fileid ], it[1] ] }
     }
 
-    fastq.view()
-
     if (!params.skipPangenome) {
         writeYAML(fastq)
     }
@@ -74,6 +81,7 @@ workflow {
     if (!params.skipAMR) {
         writeYAML_AMR(fastq)
     }
+
     samples = writeYAML.out.mix(writeYAML_AMR.out)
     sevenBridges(samples, params.sif)
 
