@@ -64,5 +64,5 @@ process petageneExpandFasterq {
         petasuite --decompress -m lossless -v off --datasteward ${datasteward} -s ${species} ${fq[0]}
         petasuite --decompress -m lossless -v off --datasteward ${datasteward} -s ${species} ${fq[1]}
     """
-
+    
 }
